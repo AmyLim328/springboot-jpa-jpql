@@ -1,5 +1,7 @@
 package jpql;
 
+import org.omg.CORBA.OBJ_ADAPTER;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,17 +21,23 @@ public class JpaMain {
             member.setUsername("team A");
             member.setAge(10);
             member.setTeam(team);
+            member.setType(MemberType.ADMIN);
             em.persist(member);
 
             em.flush();
             em.clear();
 
-            String query = "select mm from (select m.age from Member m) as mm"; // FROM 절의 서브 쿼리는 현재 JPQL에서 불가능
-            List<Member> result = em.createQuery(query, Member.class)
+            String query = "select m.username, 'HELLO', true from Member m where m.age between 0 and 10";
+
+            List<Object[]> result = em.createQuery(query)
+                    .setParameter("userType", MemberType.ADMIN)
                     .getResultList();
 
-            System.out.println("result.size() = " + result.size());
-
+            for (Object[] objects : result) {
+                System.out.println("objects[0] = " + objects[0]);
+                System.out.println("objects[0] = " + objects[1]);
+                System.out.println("objects[0] = " + objects[2]);
+            }
 
             tx.commit();
         } catch (Exception e) {
