@@ -24,7 +24,7 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            String query = "select m from Member m join Team t on m.username = t.name";
+            String query = "select mm from (select m.age from Member m) as mm"; // FROM 절의 서브 쿼리는 현재 JPQL에서 불가능
             List<Member> result = em.createQuery(query, Member.class)
                     .getResultList();
 
