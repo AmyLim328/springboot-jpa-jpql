@@ -2,6 +2,8 @@ package jpql;
 
 import javax.persistence.*;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 @Table(name = "ORDERS") // order spl 언어라 orders로 대체 사용함
 public class Order {
@@ -14,7 +16,7 @@ public class Order {
     @Embedded
     private Address address;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "PRODUCT_ID")
     private Product product;
 
