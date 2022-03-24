@@ -1,7 +1,5 @@
 package jpql;
 
-import org.omg.CORBA.OBJ_ADAPTER;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,13 +11,8 @@ public class JpaMain {
         tx.begin();
 
         try {
-//            Team team = new Team();
-//            team.setName("team A");
-//            em.persist(team);
-
             Member member1 = new Member();
             member1.setUsername("관리자1");
-//            member1.setTeam(team);
             em.persist(member1);
 
             Member member2 = new Member();
@@ -34,10 +27,7 @@ public class JpaMain {
 
             for (String s : result) {
                 System.out.println("s = " + s);
-
             }
-
-
 
             tx.commit();
         } catch (Exception e) {
